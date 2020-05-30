@@ -3,14 +3,13 @@
 #include "levels/ButtonLevel.h"
 #include <commctrl.h>
 #include "controls.h"
+#include "levels/EditLevel.h"
 
 App *App::instance = nullptr;
 
 App::App() : currentLevel(0) {
     levels.push_back(new ButtonLevel());
-    levels.push_back(new ButtonLevel());
-    levels.push_back(new ButtonLevel());
-    levels.push_back(new ButtonLevel());
+    levels.push_back(new EditLevel());
     instance = this;
 }
 
@@ -28,7 +27,7 @@ int App::exec(HINSTANCE instance_handle_arg, int n_cmd_show) {
     wc.hCursor = LoadCursor(0, IDC_ARROW);
 
     RegisterClassW(&wc);
-    window_handle = CreateWindowW(wc.lpszClassName, L"Buttons",
+    window_handle = CreateWindowW(wc.lpszClassName, L"БГУ. 2-ой семестр. Тест по Windows.",
                                   WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX | WS_VISIBLE,
                                   600, 600, 400, 400, 0, 0, instance_handle_arg, 0);
 
@@ -51,10 +50,14 @@ WNDCLASS &App::getWindowClass() {
 LRESULT App::handleMessage(HWND hwnd, UINT msg,
                            WPARAM wParam, LPARAM lParam) {
     levels[currentLevel]->handleMessage(hwnd, msg, wParam, lParam);
+
+    POINT point;
+    HMENU hMenu;
+
     switch (msg) {
         case WM_CREATE:
-            createControls(hwnd);
             addMenus(hwnd);
+            createControls(hwnd);
             levels.front()->load(hwnd);
             break;
         case WM_COMMAND:
@@ -72,6 +75,21 @@ LRESULT App::handleMessage(HWND hwnd, UINT msg,
             break;
         case WM_DESTROY:
             PostQuitMessage(0);
+            break;
+        case WM_RBUTTONUP:
+            point.x = LOWORD(lParam);
+            point.y = HIWORD(lParam);
+
+            hMenu = CreatePopupMenu();
+            ClientToScreen(hwnd, &point);
+
+            AppendMenuW(hMenu, MF_STRING, ID_MENU_1, L"&Пропустить уровень");
+            AppendMenuW(hMenu, MF_STRING, ID_MENU_2, L"&К прошлому уровню");
+            AppendMenuW(hMenu, MF_SEPARATOR, 0, NULL);
+            AppendMenuW(hMenu, MF_STRING, ID_MENU_3, L"&Выйти");
+
+            TrackPopupMenu(hMenu, TPM_RIGHTBUTTON, point.x, point.y, 0, hwnd, NULL);
+            DestroyMenu(hMenu);
             break;
         default:
             return DefWindowProcW(hwnd, msg, wParam, lParam);
@@ -110,7 +128,7 @@ void App::createControls(HWND hwnd) {
 
     progressBar = CreateWindowEx(0, PROGRESS_CLASS, NULL,
                                  WS_CHILD | WS_VISIBLE | PBS_SMOOTH,
-                                 0, 338, 400, 12, hwnd, NULL, NULL, NULL);
+                                 0, 320, 400, 12, hwnd, NULL, NULL, NULL);
 
     text = CreateWindowW(L"Static", levels[0]->getText().c_str(),
                          WS_CHILD | WS_VISIBLE | SS_LEFT,
