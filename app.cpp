@@ -2,6 +2,7 @@
 #include "app.h"
 #include "levels/ButtonLevel.h"
 #include <commctrl.h>
+#include "controls.h"
 
 App *App::instance = nullptr;
 
@@ -56,9 +57,21 @@ LRESULT App::handleMessage(HWND hwnd, UINT msg,
     switch (msg) {
         case WM_CREATE:
             createControls(hwnd);
+            addMenus(hwnd);
             levels.front()->load(hwnd);
             break;
         case WM_COMMAND:
+            switch (LOWORD(wParam)) {
+                case ID_MENU_1:
+                    nextLevel();
+                    break;
+                case ID_MENU_2:
+                    prevLevel();
+                    break;
+                case ID_MENU_3:
+                    PostQuitMessage(0);
+                    break;
+            }
             break;
         case WM_DESTROY:
             PostQuitMessage(0);
@@ -78,7 +91,7 @@ void App::nextLevel() {
         MessageBoxW(window_handle, L"Поздравляю! Вы успешно прошли тест по основным компонентам "
                                    "интерфейса приложений операционной системы Windows! Теперь вы "
                                    "в праве называть себя уверенным пользователем этой операционной системы.",
-                                   L"Успешное прохождение теста", MB_OK);
+                    L"Успешное прохождение теста", MB_OK);
         PostQuitMessage(0);
     } else {
         levels[currentLevel]->unload();
@@ -114,19 +127,33 @@ void App::createControls(HWND hwnd) {
 }
 
 void App::addMenus(HWND hwnd) {
-    /*HMENU hMenubar;
+    HMENU hMenubar;
     HMENU hMenu;
 
     hMenubar = CreateMenu();
     hMenu = CreateMenu();
 
-    AppendMenuW(hMenu, MF_STRING, IDM_FILE_NEW, L"&New");
-    AppendMenuW(hMenu, MF_STRING, IDM_FILE_OPEN, L"&Open");
+    AppendMenuW(hMenu, MF_STRING, ID_MENU_1, L"&Пропустить уровень");
+    AppendMenuW(hMenu, MF_STRING, ID_MENU_2, L"&К прошлому уровню");
     AppendMenuW(hMenu, MF_SEPARATOR, 0, NULL);
-    AppendMenuW(hMenu, MF_STRING, IDM_FILE_QUIT, L"&Quit");
+    AppendMenuW(hMenu, MF_STRING, ID_MENU_3, L"&Выйти");
 
-    AppendMenuW(hMenubar, MF_POPUP, (UINT_PTR) hMenu, L"&File");
-    SetMenu(hwnd, hMenubar);*/
+    AppendMenuW(hMenubar, MF_POPUP, (UINT_PTR) hMenu, L"&Управление");
+    SetMenu(hwnd, hMenubar);
+}
+
+void App::prevLevel() {
+    if (currentLevel == 0) {
+        MessageBeep(MB_ICONINFORMATION);
+        return;
+    }
+    levels[currentLevel]->unload();
+    --currentLevel;
+    SendMessage(progressBar, PBM_SETPOS, currentLevel, 0);
+    levels[currentLevel]->load(window_handle);
+    SetWindowTextW(text, levels[currentLevel]->getText().c_str());
+    SetWindowTextW(statusBar, (L"Выполнено " + std::to_wstring(currentLevel) +
+                               L" из " + std::to_wstring(levels.size())).c_str());
 }
 
 LRESULT MessagesHandler(HWND window_handle, UINT message_code, WPARAM w_param, LPARAM l_param) {

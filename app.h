@@ -19,6 +19,7 @@ class App {
 
     int exec(HINSTANCE instance_handle_arg, int n_cmd_show);
     void nextLevel();
+    void prevLevel();
 
     HINSTANCE getHandleInstance();
     WNDCLASS &getWindowClass();
