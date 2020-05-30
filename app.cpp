@@ -18,9 +18,6 @@ App *App::getInstance() {
     return instance;
 }
 
-#define ID_BEEP 1
-#define ID_QUIT 2
-
 int App::exec(HINSTANCE instance_handle_arg, int n_cmd_show) {
     MSG msg;
     WNDCLASSW wc = {0};
@@ -88,6 +85,7 @@ void App::nextLevel() {
         // !TODO finish game
         SetWindowTextW(statusBar, (L"Выполнено " + std::to_wstring(levels.size()) +
                                    L" из " + std::to_wstring(levels.size())).c_str());
+        MessageBeep(MB_OK);
         MessageBoxW(window_handle, L"Поздравляю! Вы успешно прошли тест по основным компонентам "
                                    "интерфейса приложений операционной системы Windows! Теперь вы "
                                    "в праве называть себя уверенным пользователем этой операционной системы.",
