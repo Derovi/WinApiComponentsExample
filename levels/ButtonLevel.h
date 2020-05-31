@@ -15,8 +15,6 @@ public:
 
 private:
     HWND button;
-
-    int ID_BUTTON = 1;
 };
 
 #endif  // BUTTONLEVEL_H

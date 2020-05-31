@@ -9,6 +9,7 @@
 #include "levels/TrackBarLevel.h"
 #include "levels/ComboBoxLevel.h"
 #include "levels/UpDownLevel.h"
+#include "levels/ColorLevel.h"
 
 App *App::instance = nullptr;
 
@@ -20,6 +21,7 @@ App::App() : currentLevel(0) {
     levels.push_back(new TrackBarLevel());
     levels.push_back(new ComboBoxLevel());
     levels.push_back(new UpDownLevel());
+    levels.push_back(new ColorLevel());
     instance = this;
 }
 

@@ -1,9 +1,9 @@
-#ifndef WINAPI2_UPDOWNLEVEL_H
-#define WINAPI2_UPDOWNLEVEL_H
+#ifndef COLORLEVEL_H
+#define COLORLEVEL_H
 
 #include "../Level.h"
 
-class UpDownLevel : public Level {
+class ColorLevel : public Level {
 public:
     void load(HWND window_handle) override;
 
@@ -13,11 +13,10 @@ public:
 
     std::wstring getText() override;
 
-private:
-    HWND upDown;
-    HWND buddy;
+    RGBTRIPLE ShowColorDialog(HWND hwnd);
 
-    int count = 5;
+private:
+    HWND button;
 };
 
-#endif  // UPDOWNLEVEL_H
+#endif  // COLORLEVEL_H

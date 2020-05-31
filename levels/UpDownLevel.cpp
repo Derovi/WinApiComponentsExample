@@ -12,7 +12,7 @@ void UpDownLevel::load(HWND hwnd) {
     // Comboboxes, and  Scroll Bars.
     RECT rcClient;
     GetClientRect(hwnd, &rcClient);
-    CreateWindowEx(WS_EX_LEFT | WS_EX_CLIENTEDGE | WS_EX_CONTEXTHELP,    //Extended window styles.
+    buddy = CreateWindowEx(WS_EX_LEFT | WS_EX_CLIENTEDGE | WS_EX_CONTEXTHELP,    //Extended window styles.
                    WC_EDIT,
                    NULL,
                    WS_CHILDWINDOW | WS_VISIBLE | WS_BORDER    // Window styles.
@@ -43,6 +43,7 @@ void UpDownLevel::load(HWND hwnd) {
 
 void UpDownLevel::unload() {
     DestroyWindow(upDown);
+    DestroyWindow(buddy);
 }
 
 void UpDownLevel::handleMessage(HWND whnd, UINT message_code, WPARAM w_param, LPARAM l_param) {
