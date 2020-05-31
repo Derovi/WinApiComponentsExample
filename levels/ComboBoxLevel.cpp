@@ -11,7 +11,6 @@ void ComboBoxLevel::load(HWND hwnd) {
     const wchar_t *items[] = { L"Завтрак", L"Обед",
                                L"Ланч", L"Ужин", L"Полдник" };
     for (int index = 0; index < 5; ++index) {
-        std::wcout << L"lol " << std::wstring(items[index]) << std::endl;
         SendMessageW(comboBox, CB_ADDSTRING, 0, (LPARAM) items[index]);
     }
 }
@@ -21,6 +20,9 @@ void ComboBoxLevel::unload() {
 }
 
 void ComboBoxLevel::handleMessage(HWND whnd, UINT message_code, WPARAM w_param, LPARAM l_param) {
+    if (LOWORD(w_param) != ID_COMBOBOX_1) {
+        return;
+    }
     switch (message_code) {
         case WM_COMMAND:
             if (HIWORD(w_param) == CBN_SELCHANGE) {

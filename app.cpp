@@ -8,6 +8,7 @@
 #include "levels/CalendarLevel.h"
 #include "levels/TrackBarLevel.h"
 #include "levels/ComboBoxLevel.h"
+#include "levels/UpDownLevel.h"
 
 App *App::instance = nullptr;
 
@@ -18,6 +19,7 @@ App::App() : currentLevel(0) {
     levels.push_back(new CalendarLevel());
     levels.push_back(new TrackBarLevel());
     levels.push_back(new ComboBoxLevel());
+    levels.push_back(new UpDownLevel());
     instance = this;
 }
 
