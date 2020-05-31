@@ -11,6 +11,7 @@
 #include "levels/UpDownLevel.h"
 #include "levels/ColorLevel.h"
 #include "levels/FileLevel.h"
+#include "levels/RadioButtonDialogLevel.h"
 
 App *App::instance = nullptr;
 
@@ -23,6 +24,7 @@ App::App() : currentLevel(0) {
     levels.push_back(new UpDownLevel());
     levels.push_back(new ColorLevel());
     levels.push_back(new FileLevel());
+    levels.push_back(new RadioButtonDialogLevel());
     levels.push_back(new ComboBoxLevel());
     instance = this;
 }
@@ -34,7 +36,7 @@ App *App::getInstance() {
 int App::exec(HINSTANCE instance_handle_arg, int n_cmd_show) {
     MSG msg;
     WNDCLASSW wc = {0};
-    wc.lpszClassName = L"Buttons";
+    wc.lpszClassName = L"WindowsTest";
     wc.hInstance = instance_handle_arg;
     wc.hbrBackground = GetSysColorBrush(COLOR_3DFACE);
     wc.lpfnWndProc = MessagesHandler;
