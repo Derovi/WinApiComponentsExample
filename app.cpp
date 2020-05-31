@@ -4,12 +4,14 @@
 #include <commctrl.h>
 #include "controls.h"
 #include "levels/EditLevel.h"
+#include "levels/CheckBoxLevel.h"
 
 App *App::instance = nullptr;
 
 App::App() : currentLevel(0) {
     levels.push_back(new ButtonLevel());
     levels.push_back(new EditLevel());
+    levels.push_back(new CheckBoxLevel());
     instance = this;
 }
 

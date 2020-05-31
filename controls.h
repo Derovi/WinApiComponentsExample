@@ -9,4 +9,7 @@
 
 #define ID_BUTTON_1 401
 
+#define ID_CHECKBOX_1 501
+#define ID_CHECKBOX_2 502
+
 #endif

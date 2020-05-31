@@ -1,9 +1,10 @@
-#ifndef EDITLEVEL_H
-#define EDITLEVEL_H
+#ifndef CHECKBOXLEVEL_H
+#define CHECKBOXLEVEL_H
+
 
 #include "../Level.h"
 
-class EditLevel : public Level {
+class CheckBoxLevel : public Level {
 public:
     void load(HWND window_handle) override;
 
@@ -14,9 +15,9 @@ public:
     std::wstring getText() override;
 
 private:
-    HWND edit;
+    HWND checkbox;
 
-    int currentCount = 0;
+    int ID_BUTTON = 1;
 };
 
-#endif  // EDITLEVEL_H
+#endif  // CHECKBOXLEVEL_H
