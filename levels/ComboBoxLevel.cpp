@@ -17,9 +17,13 @@ void ComboBoxLevel::load(HWND hwnd) {
 
 void ComboBoxLevel::unload() {
     DestroyWindow(comboBox);
+    finished = true;
 }
 
 void ComboBoxLevel::handleMessage(HWND whnd, UINT message_code, WPARAM w_param, LPARAM l_param) {
+    if (finished) {
+        return;
+    }
     if (LOWORD(w_param) != ID_COMBOBOX_1) {
         return;
     }
@@ -30,7 +34,7 @@ void ComboBoxLevel::handleMessage(HWND whnd, UINT message_code, WPARAM w_param, 
                 if (selected == 3) {
                     App::getInstance()->nextLevel();
                 }
-            }
+            } else
             if (HIWORD(w_param) == BN_CLICKED) {
                 SendMessage(comboBox, CB_SHOWDROPDOWN, (WPARAM) TRUE, 0);
             }

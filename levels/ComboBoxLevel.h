@@ -17,6 +17,8 @@ public:
 
 private:
     HWND comboBox;
+
+    bool finished = false;
 };
 
 #endif  // COMBOBOXLEVEL_H

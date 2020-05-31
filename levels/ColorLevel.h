@@ -13,7 +13,7 @@ public:
 
     std::wstring getText() override;
 
-    RGBTRIPLE ShowColorDialog(HWND hwnd);
+    RGBTRIPLE showColorDialog(HWND hwnd);
 
 private:
     HWND button;

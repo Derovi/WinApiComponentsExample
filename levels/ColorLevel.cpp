@@ -17,7 +17,7 @@ void ColorLevel::handleMessage(HWND hwnd, UINT message_code, WPARAM w_param, LPA
     switch (message_code) {
         case WM_COMMAND:
             if (LOWORD(w_param) == ID_BUTTON_2) {
-                RGBTRIPLE color = ShowColorDialog(hwnd);
+                RGBTRIPLE color = showColorDialog(hwnd);
                 if (color.rgbtBlue >= color.rgbtRed) {
                     MessageBeep(MB_HELP);
                     MessageBoxW(hwnd,
@@ -42,7 +42,7 @@ void ColorLevel::handleMessage(HWND hwnd, UINT message_code, WPARAM w_param, LPA
     }
 }
 
-RGBTRIPLE ColorLevel::ShowColorDialog(HWND hwnd) {
+RGBTRIPLE ColorLevel::showColorDialog(HWND hwnd) {
     CHOOSECOLOR color;
     static COLORREF crCustClr[16];
     ZeroMemory(&color, sizeof(color));

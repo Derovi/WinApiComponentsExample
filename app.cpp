@@ -10,6 +10,7 @@
 #include "levels/ComboBoxLevel.h"
 #include "levels/UpDownLevel.h"
 #include "levels/ColorLevel.h"
+#include "levels/FileLevel.h"
 
 App *App::instance = nullptr;
 
@@ -19,9 +20,10 @@ App::App() : currentLevel(0) {
     levels.push_back(new CheckBoxLevel());
     levels.push_back(new CalendarLevel());
     levels.push_back(new TrackBarLevel());
-    levels.push_back(new ComboBoxLevel());
     levels.push_back(new UpDownLevel());
     levels.push_back(new ColorLevel());
+    levels.push_back(new FileLevel());
+    levels.push_back(new ComboBoxLevel());
     instance = this;
 }
 

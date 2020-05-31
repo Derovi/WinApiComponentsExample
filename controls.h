@@ -9,6 +9,8 @@
 
 #define ID_BUTTON_1 401
 #define ID_BUTTON_2 402
+#define ID_BUTTON_3 403
+#define ID_BUTTON_4 404
 
 #define ID_CHECKBOX_1 501
 #define ID_CHECKBOX_2 502
