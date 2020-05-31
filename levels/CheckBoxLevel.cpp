@@ -4,17 +4,18 @@
 #include "../controls.h"
 
 void CheckBoxLevel::load(HWND hwnd) {
-    checkbox = CreateWindowW(L"Button", L"Windows - увлекательно",
+    checkbox1 = CreateWindowW(L"Button", L"Windows - увлекательно",
                            WS_VISIBLE | WS_CHILD | BS_CHECKBOX,
                            100, 230, 300, 20, hwnd, (HMENU) ID_CHECKBOX_1, NULL, NULL);
 
-    checkbox = CreateWindowW(L"Button", L"Win Api - современно",
+    checkbox2 = CreateWindowW(L"Button", L"Win Api - современно",
                              WS_VISIBLE | WS_CHILD | BS_CHECKBOX,
                              100, 260, 300, 20, hwnd, (HMENU) ID_CHECKBOX_2, NULL, NULL);
 }
 
 void CheckBoxLevel::unload() {
-    DestroyWindow(checkbox);
+    DestroyWindow(checkbox1);
+    DestroyWindow(checkbox2);
 }
 
 void CheckBoxLevel::handleMessage(HWND hwnd, UINT message_code, WPARAM w_param, LPARAM l_param) {

@@ -1,10 +1,9 @@
-#ifndef CHECKBOXLEVEL_H
-#define CHECKBOXLEVEL_H
-
+#ifndef CALLENDARLEVEL_H
+#define CALLENDARLEVEL_H
 
 #include "../Level.h"
 
-class CheckBoxLevel : public Level {
+class CalendarLevel : public Level {
 public:
     void load(HWND window_handle) override;
 
@@ -15,10 +14,7 @@ public:
     std::wstring getText() override;
 
 private:
-    HWND checkbox1;
-    HWND checkbox2;
-
-    int ID_BUTTON = 1;
+    HWND calendar;
 };
 
-#endif  // CHECKBOXLEVEL_H
+#endif  // CALLENDARLEVEL_H

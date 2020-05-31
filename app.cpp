@@ -5,6 +5,7 @@
 #include "controls.h"
 #include "levels/EditLevel.h"
 #include "levels/CheckBoxLevel.h"
+#include "levels/CalendarLevel.h"
 
 App *App::instance = nullptr;
 
@@ -12,6 +13,7 @@ App::App() : currentLevel(0) {
     levels.push_back(new ButtonLevel());
     levels.push_back(new EditLevel());
     levels.push_back(new CheckBoxLevel());
+    levels.push_back(new CalendarLevel());
     instance = this;
 }
 
@@ -114,10 +116,10 @@ void App::nextLevel() {
     } else {
         levels[currentLevel]->unload();
         ++currentLevel;
-        levels[currentLevel]->load(window_handle);
         SetWindowTextW(text, levels[currentLevel]->getText().c_str());
         SetWindowTextW(statusBar, (L"Выполнено " + std::to_wstring(currentLevel) +
                                    L" из " + std::to_wstring(levels.size())).c_str());
+        levels[currentLevel]->load(window_handle);
     }
 }
 
@@ -168,10 +170,10 @@ void App::prevLevel() {
     levels[currentLevel]->unload();
     --currentLevel;
     SendMessage(progressBar, PBM_SETPOS, currentLevel, 0);
-    levels[currentLevel]->load(window_handle);
     SetWindowTextW(text, levels[currentLevel]->getText().c_str());
     SetWindowTextW(statusBar, (L"Выполнено " + std::to_wstring(currentLevel) +
                                L" из " + std::to_wstring(levels.size())).c_str());
+    levels[currentLevel]->load(window_handle);
 }
 
 LRESULT MessagesHandler(HWND window_handle, UINT message_code, WPARAM w_param, LPARAM l_param) {

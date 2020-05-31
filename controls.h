@@ -12,4 +12,6 @@
 #define ID_CHECKBOX_1 501
 #define ID_CHECKBOX_2 502
 
+#define ID_CALENDAR_1 601
+
 #endif
