@@ -16,4 +16,6 @@
 
 #define ID_TRACKBAR_1 701
 
+#define ID_COMBOBOX_1 701
+
 #endif
