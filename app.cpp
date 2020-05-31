@@ -6,6 +6,7 @@
 #include "levels/EditLevel.h"
 #include "levels/CheckBoxLevel.h"
 #include "levels/CalendarLevel.h"
+#include "levels/TrackBarLevel.h"
 
 App *App::instance = nullptr;
 
@@ -14,6 +15,7 @@ App::App() : currentLevel(0) {
     levels.push_back(new EditLevel());
     levels.push_back(new CheckBoxLevel());
     levels.push_back(new CalendarLevel());
+    levels.push_back(new TrackBarLevel());
     instance = this;
 }
 

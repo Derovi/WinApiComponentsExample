@@ -14,4 +14,6 @@
 
 #define ID_CALENDAR_1 601
 
+#define ID_TRACKBAR_1 701
+
 #endif
