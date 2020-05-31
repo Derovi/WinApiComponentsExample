@@ -26,6 +26,11 @@
 
 #define ID_COMBOBOX_1 701
 
-#define ID_UPDOWN_1 801
+#define ID_GROUP_1 801
 
+#define ID_RADIO_1 901
+#define ID_RADIO_2 902
+#define ID_RADIO_3 903
+#define ID_RADIO_4 904
+#define ID_RADIO_5 905
 #endif

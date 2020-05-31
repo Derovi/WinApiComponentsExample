@@ -40,29 +40,23 @@ void RadioButtonDialogLevel::showDialog(HWND hwnd) {
     dialogClass.lpszMenuName = NULL;
     dialogClass.style = CS_HREDRAW | CS_VREDRAW;
 
-    if (!RegisterClassExW(&dialogClass)) {
-        int nResult = GetLastError();
-        MessageBoxW(NULL,
-                    L"Window class creation failed for window 2",
-                    L"Window Class Failed",
-                    MB_ICONERROR);
-    }
+    RegisterClassExW(&dialogClass);
 
     RECT rect;
     GetWindowRect(hwnd, &rect);
 
     dialog = CreateWindowExW(NULL,
-                            dialogClass.lpszClassName,
-                            L"Выберите лишнее",
-                            WS_OVERLAPPED,
-                            rect.left + 100,
-                            rect.top + 50,
-                            200,
-                            300,
-                            NULL,
-                            0,
-                            App::getInstance()->getHandleInstance(),
-                            NULL);
+                             dialogClass.lpszClassName,
+                             L"Выберите лишнее",
+                             WS_OVERLAPPED,
+                             rect.left + 100,
+                             rect.top + 50,
+                             200,
+                             300,
+                             NULL,
+                             0,
+                             App::getInstance()->getHandleInstance(),
+                             NULL);
 
     ShowWindow(dialog, 1);
 }
@@ -77,15 +71,46 @@ LRESULT DialogMessagesHandler(HWND hwnd, UINT message_code, WPARAM w_param, LPAR
     switch (message_code) {
         case WM_CREATE:
             CreateWindowW(L"Button", L"Отправить",
-                                   WS_VISIBLE | WS_CHILD,
-                                   50, 236, 100, 30, hwnd, (HMENU) ID_BUTTON_6, NULL, NULL);
+                          WS_VISIBLE | WS_CHILD,
+                          50, 236, 100, 30, hwnd, (HMENU) ID_BUTTON_6, NULL, NULL);
+
+            CreateWindowW(L"Button", L"Лишнее",
+                          WS_CHILD | WS_VISIBLE | BS_GROUPBOX,
+                          20, 20, 120, 180, hwnd, (HMENU) ID_GROUP_1, App::getInstance()->getHandleInstance(), NULL);
+            CreateWindowW(L"Button", L"Windows",
+                          WS_CHILD | WS_VISIBLE | BS_AUTORADIOBUTTON,
+                          30, 50, 100, 30, hwnd, (HMENU) ID_RADIO_1, App::getInstance()->getHandleInstance(), NULL);
+            CreateWindowW(L"Button", L"Linux",
+                          WS_CHILD | WS_VISIBLE | BS_AUTORADIOBUTTON,
+                          30, 75, 100, 30, hwnd, (HMENU) ID_RADIO_2, App::getInstance()->getHandleInstance(), NULL);
+            CreateWindowW(L"Button", L"Android",
+                          WS_CHILD | WS_VISIBLE | BS_AUTORADIOBUTTON,
+                          30, 100, 100, 30, hwnd, (HMENU) ID_RADIO_3, App::getInstance()->getHandleInstance(), NULL);
+            CreateWindowW(L"Button", L"Морковь",
+                          WS_CHILD | WS_VISIBLE | BS_AUTORADIOBUTTON,
+                          30, 125, 100, 30, hwnd, (HMENU) ID_RADIO_4, App::getInstance()->getHandleInstance(), NULL);
+            CreateWindowW(L"Button", L"IOS",
+                          WS_CHILD | WS_VISIBLE | BS_AUTORADIOBUTTON,
+                          30, 150, 100, 30, hwnd, (HMENU) ID_RADIO_5, App::getInstance()->getHandleInstance(), NULL);
+
             break;
         case WM_COMMAND:
-            if (LOWORD(w_param) == ID_BUTTON_6) {
-                App::getInstance()->nextLevel();
-                DestroyWindow(hwnd);
+            if (HIWORD(w_param) == BN_CLICKED) {
+                switch (LOWORD(w_param)) {
+                    case ID_BUTTON_6:
+                        if (IsDlgButtonChecked(hwnd, ID_RADIO_4)) {
+                            App::getInstance()->nextLevel();
+                        } else {
+                            MessageBeep(MB_HELP);
+                            MessageBoxW(hwnd,
+                                        L"Обратитесь за помощью к более опытному пользователю ПК.",
+                                        L"Ошибка!",
+                                        MB_HELP);
+                        }
+                        DestroyWindow(hwnd);
+                        break;
+                }
             }
-            break;
         default:
             return DefWindowProcW(hwnd, message_code, w_param, l_param);
     }
